@@ -33,10 +33,10 @@ body {
 
 
 #gameScreen {
-    position: relative;
-    width: 400px;
-    height: 600px;
-    margin: 50px auto;
+    position:relative;
+    width: 350px;
+    height: 500px;
+    margin: 20px auto;
     background-color: #f0eded;
     border: 2px solid #444;
     display: none;
@@ -100,15 +100,25 @@ body {
     padding: 10px 20px;
     font-size: 12px;
     cursor: pointer;
+    margin-top: 0 ;
+    border: 1px solid rgb(39, 4, 41);
+    border-radius: 8px;
+}
+
+#home {
+    font-family: "Press Start 2P";
+    background-color: rgb(183, 135, 187);
+    color: rgb(39, 4, 41);
+    padding: 10px 20px;
+    font-size: 12px;
+    cursor: pointer;
     margin-top: 20px;
     border: 1px solid rgb(39, 4, 41);
     border-radius: 8px;
 }
 
 #score {
-    font-family: "Press Start 2P";
-    color: rgb(146, 22, 155);
-    margin: 20px 20px;
-    font-size: 20px;
+        font-family: "Press Start 2P";
+    font-size: 10px;
+margin: 20px auto ;
 }
-

@@ -1,12 +1,12 @@
 /*-------------------------------- Constants --------------------------------*/
-// calling canvis , rendering 2d context 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const gravity = 0.5;
 const jumping = -8;
-const pipes = [];
+let pipes = [];
+const backgroundImg = new Image();
+backgroundImg.src = '/kitty-phantom-project/assets/background.gif';
 /*-------------------------------- Variables --------------------------------*/
-//character 
 let cat = {
     x: 60,
     y: 190,
@@ -27,7 +27,9 @@ const gameOverBox = document.querySelector('#gameOverBox');
 const gameOverMessageEl = document.querySelector('#gameOverMessage');
 const playAgainBtnEl = document.querySelector('#playAgain');
 const clickMessageEl = document.querySelector('#clickMessage');
-const scoreEl = document.querySelector('#score');
+const playerName = document.querySelector('#name');
+const homeBtnEl = document.querySelector('#home')
+const scoreEnd = document.querySelector('#score');
 /*-------------------------------- Functions --------------------------------*/
 function showGameOver() {
     gameOverBox.style.display = 'block';
@@ -63,6 +65,13 @@ function createPipe() {
     };
     pipes.push(pipe);
 
+    if (score >= 7) {
+        pipe.speed = 4
+    }
+
+    if (score >= 14) {
+        pipe.speed = 5
+    }
 }
 
 function updatePipes() {
@@ -72,6 +81,7 @@ function updatePipes() {
         if (pipe.x + pipe.width < 0) {
             pipes.splice(index, 1);
         }
+
     });
 }
 
@@ -116,12 +126,17 @@ function updateCat() {
     }
 }
 
-function checkCollision() {
+function drawScore() {
+    ctx.font = '12px "Press Start 2P" '
+    ctx.fillStyle = '#92169b'
+    ctx.fillText(`Score: ${score}`, 10, 20);
+}
+
+function collisionDetection() {
     pipes.forEach(pipe => {
         const hitX = cat.x + cat.width > pipe.x && cat.x < pipe.x + pipe.width;
         const hitTop = cat.y < pipe.gapY;
         const hitBottom = cat.y + cat.height > pipe.gapY + pipe.gapHeight;
-
         if (hitX && (hitTop || hitBottom)) {
             gameOver = true;
             running = false;
@@ -130,38 +145,40 @@ function checkCollision() {
     });
 }
 
-function scoreUpdate(){
-    if(cat.x + cat.width < pipes.x ){
-        score ++; 
-     
-    }
+function drawScoreEnd() {
+    scoreEnd.innerText = (`score: ${score}`);
 }
 
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    
     if (running) {
-        updateCat();
         drawCat();
-        updatePipes();
+        updateCat();
         drawPipes();
-        checkCollision();
+        updatePipes();
+        collisionDetection();
+        drawScore();
         requestAnimationFrame(gameLoop);
         if (pipes.length === 0 || pipes[pipes.length - 1].x < canvas.width - 250) {
             createPipe();
+            score++;
 
         }
 
-        else if (gameOver) {
+        else {
             drawCat();
+            drawScore();
+            drawScoreEnd();
         }
     }
 };
 
-
 /*----------------------------- Event Listeners -----------------------------*/
 
 startBtnEl.addEventListener('click', () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     startBtnEl.style.display = 'none';
     homeScreen.style.display = 'none';
     gameScreen.style.display = 'flex';
@@ -182,19 +199,32 @@ clickMessageEl.addEventListener('click', () => {
 });
 
 playAgainBtnEl.addEventListener('click', () => {
-    if (gameOver) {
-        cat.y = 190;
-        cat.dy = 0;
-        score = 0;
-        hideGameOver();
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        gameScreen.style.display = "none";
-        homeScreen.style.display = "flex";
-        startBtnEl.style.display = 'block';
-        gameOver = false;
-        running = false;
-    }
-})
+    cat.y = 190;
+    cat.dy = 0;
+    score = 0;
+    pipes = [];
+    hideGameOver();
+    
+    gameScreen.style.display = "flex";
+    homeScreen.style.display = "none";
+    startBtnEl.style.display = 'none';
+    gameOver = false;
+    running = true;
+    console.log('salman ' + running)
+    gameLoop();
+
+});
+
+homeBtnEl.addEventListener('click', () => {
+    hideGameOver();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    gameScreen.style.display = "none";
+    homeScreen.style.display = "flex";
+    startBtnEl.style.display = 'block';
+    clickMessageEl.style.display = 'block';
+    gameOver = false;
+    running = false;
+});
 
 
 document.addEventListener('keydown', (e) => {
@@ -209,3 +239,7 @@ document.addEventListener('keydown', (e) => {
 document.addEventListener('mousedown', () => {
     if (running) jump();
 });
+
+backgroundImg.onload = function drawBackground() {
+    ctx.drawImage(backgroundImg,canvas.height, canvas.width);
+}
