@@ -4,8 +4,7 @@ const ctx = canvas.getContext("2d");
 const gravity = 0.5;
 const jumping = -8;
 let pipes = [];
-const backgroundImg = new Image();
-backgroundImg.src = '/kitty-phantom-project/assets/background.gif';
+
 /*-------------------------------- Variables --------------------------------*/
 let cat = {
     x: 60,
@@ -30,6 +29,7 @@ const clickMessageEl = document.querySelector('#clickMessage');
 const playerName = document.querySelector('#name');
 const homeBtnEl = document.querySelector('#home')
 const scoreEnd = document.querySelector('#score');
+const backgroundImg = document.querySelector('#background');
 /*-------------------------------- Functions --------------------------------*/
 function showGameOver() {
     gameOverBox.style.display = 'block';
@@ -209,7 +209,6 @@ playAgainBtnEl.addEventListener('click', () => {
     startBtnEl.style.display = 'none';
     gameOver = false;
     running = true;
-    console.log('salman ' + running)
     gameLoop();
 
 });
@@ -239,6 +238,4 @@ document.addEventListener('mousedown', () => {
     if (running) jump();
 });
 
-backgroundImg.onload = function drawBackground() {
-    ctx.drawImage(backgroundImg,canvas.height, canvas.width);
-}
+

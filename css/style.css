@@ -4,6 +4,8 @@ canvas {
     display: block;
     margin: 0 auto;
     padding: auto;
+    background-image:url('/kitty-phantom-project/assets/background\ 4.jpg');
+    background-size: cover;
 }
 
 body {
