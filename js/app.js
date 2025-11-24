@@ -184,7 +184,6 @@ startBtnEl.addEventListener('click', () => {
     gameScreen.style.display = 'flex';
     clickMessageEl.style.display = 'block';
     drawCat();
-    drawPipes();
 });
 
 clickMessageEl.addEventListener('click', () => {
@@ -199,12 +198,12 @@ clickMessageEl.addEventListener('click', () => {
 });
 
 playAgainBtnEl.addEventListener('click', () => {
+     ctx.clearRect(0, 0, canvas.width, canvas.height);
     cat.y = 190;
     cat.dy = 0;
     score = 0;
     pipes = [];
     hideGameOver();
-    
     gameScreen.style.display = "flex";
     homeScreen.style.display = "none";
     startBtnEl.style.display = 'none';
