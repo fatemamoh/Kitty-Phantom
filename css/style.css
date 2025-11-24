@@ -4,15 +4,13 @@ canvas {
     display: block;
     margin: 0 auto;
     padding: auto;
-    background-image:url('/kitty-phantom-project/assets/background\ 4.jpg');
-    background-size: cover;
+    
 }
 
 body {
     margin: 0;
     background-color: #f0eded;
 }
-
 
 
 #homeScreen {
@@ -35,14 +33,13 @@ body {
 
 
 #gameScreen {
-    position:relative;
+    position: relative;
     width: 350px;
     height: 500px;
     margin: 20px auto;
     background-color: #f0eded;
     border: 2px solid #444;
     display: none;
-
 }
 
 
@@ -102,7 +99,7 @@ body {
     padding: 10px 20px;
     font-size: 12px;
     cursor: pointer;
-    margin-top: 0 ;
+    margin-top: 0;
     border: 1px solid rgb(39, 4, 41);
     border-radius: 8px;
 }
@@ -120,7 +117,7 @@ body {
 }
 
 #score {
-        font-family: "Press Start 2P";
+    font-family: "Press Start 2P";
     font-size: 10px;
-margin: 20px auto ;
+    margin: 20px auto;
 }

@@ -3,21 +3,32 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const gravity = 0.5;
 const jumping = -8;
-let pipes = [];
+// images upload:
+const backgroundImg = new Image();
+backgroundImg.src = '/kitty-phantom-project/assets/Background.png';
+
+const catImg = new Image();
+catImg.src = '/kitty-phantom-project/assets/cat.png'
+
+const pipeImg = new Image();
+pipeImg.src = '/kitty-phantom-project/assets/pipes.purple.png'
 
 /*-------------------------------- Variables --------------------------------*/
 let cat = {
     x: 60,
     y: 190,
-    width: 30,
-    height: 30,
+    width: 60,
+    height: 60,
     dy: 0
 };
-
 
 let running = false;
 let gameOver = false;
 let score = 0;
+let backGWidth = 0;
+let scrollSpeed = 1.5;
+let pipes = [];
+
 /*------------------------ Cached Element References ------------------------*/
 const homeScreen = document.querySelector('#homeScreen');
 const gameScreen = document.querySelector('#gameScreen');
@@ -29,7 +40,6 @@ const clickMessageEl = document.querySelector('#clickMessage');
 const playerName = document.querySelector('#name');
 const homeBtnEl = document.querySelector('#home')
 const scoreEnd = document.querySelector('#score');
-const backgroundImg = document.querySelector('#background');
 /*-------------------------------- Functions --------------------------------*/
 function showGameOver() {
     gameOverBox.style.display = 'block';
@@ -61,7 +71,8 @@ function createPipe() {
         width: width,
         gapY: gapY,
         gapHeight: gapHeight,
-        speed: 3
+        speed: 3,
+        passed: false
     };
     pipes.push(pipe);
 
@@ -81,22 +92,25 @@ function updatePipes() {
         if (pipe.x + pipe.width < 0) {
             pipes.splice(index, 1);
         }
-
+        if (!pipe.passed && pipe.x + pipe.width < cat.x) {
+            pipe.passed = true;
+            score++;
+        }
     });
 }
 
 function drawPipes() {
     ctx.fillStyle = 'rgb(39, 4, 41)';
     pipes.forEach(pipe => {
-        ctx.fillRect(pipe.x, 0, pipe.width, pipe.gapY);
-        ctx.fillRect(pipe.x, pipe.gapY + pipe.gapHeight, pipe.width, canvas.height - (pipe.gapY + pipe.gapHeight));
+        ctx.drawImage(pipeImg, pipe.x, 0, pipe.width, pipe.gapY);
+        ctx.drawImage(pipeImg, pipe.x, pipe.gapY + pipe.gapHeight, pipe.width, canvas.height - (pipe.gapY + pipe.gapHeight));
     });
 }
 
 
 function drawCat() {
-    ctx.fillStyle = 'purple';
-    ctx.fillRect(cat.x, cat.y, cat.width, cat.height);
+    ctx.drawImage(catImg, cat.x, cat.y, cat.width, cat.height);
+
 }
 
 
@@ -124,6 +138,7 @@ function updateCat() {
         showGameOver();
 
     }
+
 }
 
 function drawScore() {
@@ -152,26 +167,28 @@ function drawScoreEnd() {
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    
+    ctx.drawImage(backgroundImg, backGWidth, 0, canvas.width, canvas.height);
+    ctx.drawImage(backgroundImg, backGWidth + canvas.width, 0, canvas.width, canvas.height);
+    backGWidth -= scrollSpeed;
+
+    if (backGWidth <= -canvas.width) {
+        backGWidth = 0;
+    }
+
     if (running) {
-        drawCat();
         updateCat();
-        drawPipes();
         updatePipes();
         collisionDetection();
+        drawPipes();
+        drawCat();
         drawScore();
-        requestAnimationFrame(gameLoop);
+
         if (pipes.length === 0 || pipes[pipes.length - 1].x < canvas.width - 250) {
             createPipe();
-            score++;
-
         }
+        requestAnimationFrame(gameLoop);
 
-        else {
-            drawCat();
-            drawScore();
-            drawScoreEnd();
-        }
+
     }
 };
 
@@ -182,7 +199,7 @@ startBtnEl.addEventListener('click', () => {
     startBtnEl.style.display = 'none';
     homeScreen.style.display = 'none';
     gameScreen.style.display = 'flex';
-    clickMessageEl.style.display = 'block';
+    showClickMessage();
     drawCat();
 });
 
@@ -198,7 +215,7 @@ clickMessageEl.addEventListener('click', () => {
 });
 
 playAgainBtnEl.addEventListener('click', () => {
-     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     cat.y = 190;
     cat.dy = 0;
     score = 0;
@@ -219,7 +236,7 @@ homeBtnEl.addEventListener('click', () => {
     gameScreen.style.display = "none";
     homeScreen.style.display = "flex";
     startBtnEl.style.display = 'block';
-    clickMessageEl.style.display = 'block';
+    showClickMessage();
     gameOver = false;
     running = false;
 });
