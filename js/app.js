@@ -37,7 +37,6 @@ const gameOverBox = document.querySelector('#gameOverBox');
 const gameOverMessageEl = document.querySelector('#gameOverMessage');
 const playAgainBtnEl = document.querySelector('#playAgain');
 const clickMessageEl = document.querySelector('#clickMessage');
-const playerName = document.querySelector('#name');
 const homeBtnEl = document.querySelector('#home')
 const scoreEnd = document.querySelector('#score');
 /*-------------------------------- Functions --------------------------------*/
@@ -143,13 +142,13 @@ function updateCat() {
 
 function drawScore() {
     ctx.font = '12px "Press Start 2P" '
-    ctx.fillStyle = '#92169b'
+    ctx.fillStyle = '#f4e5cfff'
     ctx.fillText(`Score: ${score}`, 10, 20);
 }
 
 function collisionDetection() {
     pipes.forEach(pipe => {
-        const hitX = cat.x + cat.width > pipe.x && cat.x < pipe.x + pipe.width;
+        const hitX = cat.x + cat.width > pipe.x && cat.x < pipe.x +     pipe.width;
         const hitTop = cat.y < pipe.gapY;
         const hitBottom = cat.y + cat.height > pipe.gapY + pipe.gapHeight;
         if (hitX && (hitTop || hitBottom)) {
@@ -170,6 +169,7 @@ function gameLoop() {
     ctx.drawImage(backgroundImg, backGWidth, 0, canvas.width, canvas.height);
     ctx.drawImage(backgroundImg, backGWidth + canvas.width, 0, canvas.width, canvas.height);
     backGWidth -= scrollSpeed;
+    scrollSpeed = 1.5 + score * 0.05;
 
     if (backGWidth <= -canvas.width) {
         backGWidth = 0;
@@ -196,6 +196,8 @@ function gameLoop() {
 
 startBtnEl.addEventListener('click', () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(backgroundImg, backGWidth, 0, canvas.width, canvas.height);
+    ctx.drawImage(backgroundImg, backGWidth + canvas.width, 0, canvas.width, canvas.height);
     startBtnEl.style.display = 'none';
     homeScreen.style.display = 'none';
     gameScreen.style.display = 'flex';
@@ -236,9 +238,12 @@ homeBtnEl.addEventListener('click', () => {
     gameScreen.style.display = "none";
     homeScreen.style.display = "flex";
     startBtnEl.style.display = 'block';
-    showClickMessage();
     gameOver = false;
     running = false;
+    score = 0;
+    cat.y = 190;
+    cat.dy = 0;
+
 });
 
 
