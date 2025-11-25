@@ -4,7 +4,7 @@ canvas {
     display: block;
     margin: 0 auto;
     cursor: url("/kitty-phantom-project/assets/cursorSmall.png"), auto;
-    
+
 }
 
 body {
@@ -22,6 +22,9 @@ body {
 .menu {
     display: flex;
     flex-direction: column;
+    /* background-color: #3c1106; */
+    width: 40%;
+    justify-content: center;
 
 }
 
@@ -34,9 +37,10 @@ body {
     align-items: center;
     background-color: #f8d5c0;
     gap: 100px;
-   
     cursor: url('/kitty-phantom-project/assets/cursorSmall.png'), auto;
-
+    justify-content: space-around;
+    overflow: hidden;
+    /* flex-wrap: wrap; */
 }
 
 @keyframes pulse {
@@ -65,6 +69,9 @@ body {
     margin: 0 auto;
     padding: 45px;
     animation: pulse 2s infinite alternate;
+    width: 90%;
+    justify-content: center;
+    /* background-color: aqua; */
 }
 
 
@@ -133,8 +140,9 @@ body {
     background-repeat: no-repeat;
     background-color: transparent;
     color: #3c1106;
-    padding: 75px 70px;
+    padding: 55px 60px;
     font-size: 18px;
+    width: 100%;
     border: none;
     transition: transform 0.2s ease-in-out;
     cursor: url("/kitty-phantom-project/assets/cursorSmall.png"), auto;
@@ -175,9 +183,21 @@ body {
     margin: 20px auto;
 }
 
-.insruction{
-     font-family: "Press Start 2P";
+.insruction {
+    font-family: "Press Start 2P";
     background-color: #e6a23c;
+    margin: 30px;
     padding: 10px 10px;
-    font-size:15px;
+    font-size: 15px;
+}
+
+.tree {
+    width: 50%;
+}
+
+.clickCat {
+    font-family: "Press Start 2P";
+    font-size: 12px;
+    margin: 0px auto;
+    padding: 10px;
 }
