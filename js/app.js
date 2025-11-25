@@ -5,10 +5,10 @@ const gravity = 0.5;
 const jumping = -8;
 // images upload:
 const backgroundImg = new Image();
-backgroundImg.src = '/kitty-phantom-project/assets/Background.png';
+backgroundImg.src = '/kitty-phantom-project/assets/sunflower.jpg';
 
 const catImg = new Image();
-catImg.src = '/kitty-phantom-project/assets/cat.png'
+catImg.src = '/kitty-phantom-project/assets/orange.png'
 
 const pipeImg = new Image();
 pipeImg.src = '/kitty-phantom-project/assets/pipes.purple.png'
@@ -57,9 +57,9 @@ function hideClickMessage() {
 }
 
 function createPipe() {
-    const width = 50;
-    const minGap = 140;
-    const maxGap = 180;
+    const width = 60;
+    const minGap = 160;
+    const maxGap = 220;
     const gapHeight = Math.floor(Math.random() * (maxGap - minGap + 1) + minGap);
 
     const minY = 50;
