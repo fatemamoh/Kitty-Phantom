@@ -282,7 +282,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 
-document.addEventListener('mousedown', () => {
+document.addEventListener('mousedown', (e) => {
     if (instructionDivEl.style.display === 'flex' || !running) return;
     if (gameScreen.style.display === 'flex' && e.target === canvas) {
         jump();
