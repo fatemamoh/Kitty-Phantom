@@ -290,3 +290,5 @@ document.addEventListener('mousedown', (e) => {
 });
 
 
+// const ass=new Audio("")
+// ass.play()

@@ -3,7 +3,6 @@
 canvas {
     display: block;
     cursor: url("../assets/cursorSmall.png"), auto;
-
 }
 
 body {
@@ -32,7 +31,7 @@ body {
     border-radius: 14px;
     gap: 100px;
     cursor: url('../assets/cursorSmall.png'), auto;
-    justify-content:flex-start;
+    justify-content: flex-start;
     overflow: hidden;
 }
 
@@ -119,7 +118,7 @@ body {
     padding: 10px;
 }
 
-.instruction {
+/* .instruction {
     font-family: "Press Start 2P";
     background-color: #f8d5c0;
     color: rgb(171, 87, 3);
@@ -127,13 +126,39 @@ body {
     font-size: 12px;
     border-radius: 8px;
     border: 1px solid #a54410;
-    /* border: none; */
+    border: none;
     cursor: url('../assets/cursorSmall.png'), auto;
     transition: transform 0.1s;
     margin: 20px;
-        box-shadow: 0 10px 30px rgba(2, 2, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(2, 2, 0, 0.2);
 
+} */
+
+.instruction{
+    border: none;
+    outline: 1px dotted rgb(37, 37, 37);
+  outline-offset: -4px;
+  cursor: pointer;
+  background: #FA881E;
+  box-shadow:
+    inset -1px -1px #292929,
+    inset 1px 1px #fff,
+    inset -2px -2px #FA881E,
+    inset 2px 2px #ffffff;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 5px 30px;
 }
+
+.instruction:active {
+  box-shadow:
+    inset -1px -1px #fff,
+    inset 1px 1px #292929,
+    inset -2px -2px #ffffff,
+    inset 2px 2px rgb(158, 158, 158);
+}
+
 
 .overlay {
     position: fixed;
@@ -152,7 +177,7 @@ body {
     font-family: "Press Start 2P";
     background-color: #f8d5c0;
     background-image: url('../assets/heartyLeave.gif');
-    background-position:top;
+    background-position: top;
     background-size: 50px;
     background-repeat: no-repeat;
     padding: 20px;
@@ -164,41 +189,42 @@ body {
     text-align: center;
 }
 
-.titleInsruction{
-font-size: 14px;
-color: rgb(207, 112, 18);
-margin-top: 50px;
-margin-bottom: 20px;
+.titleInsruction {
+    font-size: 14px;
+    color: rgb(207, 112, 18);
+    margin-top: 50px;
+    margin-bottom: 20px;
 }
-    
-.textInstruction, .ruleInstruction{
+
+.textInstruction,
+.ruleInstruction {
     font-size: 12px;
     padding-left: 0;
     margin: 20px 0;
-            line-height: 1.9;
-            color: #853605;
+    line-height: 1.9;
+    color: #853605;
 
 }
 
-.rules{
+.rules {
     /* font-weight: bold; */
     color: #a54410;
     display: inline-block;
     min-width: 60px;
     font-size: 12px;
     text-align: left;
-            line-height: 2.2;
+    line-height: 2.2;
 
 }
 
 li {
     font-size: 12px;
-        text-align: left;
-        line-height: 2.2;
+    text-align: left;
+    line-height: 2.2;
 
 }
 
-.closeBtn{
+.closeBtn {
     font-family: 'Press Start 2P';
     padding: 10px 20px;
     font-size: 10px;
